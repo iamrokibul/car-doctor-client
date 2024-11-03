@@ -1,13 +1,45 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/logo.svg';
+import { AuthContext } from '../../../providers/AuthProvider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const NavBar = () => {
+
+    const {user, logOut} = useContext(AuthContext);
+    const handleLogOut = () => {
+        logOut()
+        .then(() => {
+            Swal.fire({
+                title: 'Success!',
+                text: 'Successfully Sign Out!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+              })
+        })
+        .catch(error => {
+            Swal.fire({
+                title: 'Opps!',
+                text: 'Unsuccessfull Sign Out!',
+                icon: 'error',
+                confirmButtonText: 'OK'
+              })
+        });
+    }
+
     const navItems = <>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
-        <li><Link to="/login">Login</Link></li>
-        <li><Link to="/signup">Sign Up</Link></li>
+        {
+            user?.email? <>
+                <li><Link to="/mybookings">My Bookings</Link></li>
+                <button onClick={handleLogOut}>Log Out</button>
+            </> : 
+            <span className='flex'>
+                <li><Link to="/login">Login</Link></li>
+                <li><Link to="/signup">Sign Up</Link></li>
+            </span>
+        }
     </>
 
     return (
