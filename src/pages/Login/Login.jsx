@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import img from '../../assets/images/login/login.svg';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 import { Result } from 'postcss';
 import Swal from 'sweetalert2';
@@ -9,6 +9,8 @@ const Login = () => {
 
     // Importing signIn function from AuthContext in AuthProvider jsx file
     const {signIn} = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     // Getting data from user signin form
     const handleLogin = event => {
@@ -30,6 +32,7 @@ const Login = () => {
                     icon: 'success',
                     confirmButtonText: 'OK'
                   })
+                  navigate(location?.state ? location?.state : '/');
             })
             .catch(error => {
                 console.error(error.message);

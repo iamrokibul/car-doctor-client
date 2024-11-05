@@ -69,7 +69,7 @@ const Bookings = () => {
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="email" name='email' defaultValue={user?.email} placeholder="email" className="input input-bordered" required />
+                                <input type="email" readOnly name='email' defaultValue={user?.email} placeholder="email" className="input input-bordered" required />
                             </div>
                         </div>
                         <div className='flex gap-5'>
