@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 import BookingList from './BookingList';
+import axios from 'axios';
 
 const MyBookings = () => {
     const {user} = useContext(AuthContext);
@@ -8,9 +9,15 @@ const MyBookings = () => {
     const [bookings, setBookings] = useState([]);
     
     useEffect( () => {
-        fetch(url)
-        .then(res => res.json())
-        .then(data => setBookings(data));
+
+        axios.get(url, {withCredentials: true})
+        .then(res => {
+            setBookings(res.data)
+        })
+
+        // fetch(url)
+        // .then(res => res.json())
+        // .then(data => setBookings(data));
         // console.log(bookings);
     } ,[]);
 
