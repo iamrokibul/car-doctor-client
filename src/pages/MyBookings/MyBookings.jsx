@@ -1,19 +1,29 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
+// import { useContext } from 'react';
+// import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
+// import axios from 'axios';
+import { useEffect, useState } from 'react';
 import BookingList from './BookingList';
-import axios from 'axios';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import useAuth from '../../hooks/useAuth';
 
 const MyBookings = () => {
-    const {user} = useContext(AuthContext);
-    const url = `http://localhost:5000/totalbookings?email=${user?.email}`;
+    const {user} = useAuth();
     const [bookings, setBookings] = useState([]);
+    const secureAxios = useAxiosSecure();
+    // const url = `http://localhost:5000/totalbookings?email=${user?.email}`;
+    const url = `/totalbookings?email=${user?.email}`;
     
     useEffect( () => {
 
-        axios.get(url, {withCredentials: true})
+        secureAxios.get(url)
         .then(res => {
-            setBookings(res.data)
-        })
+            setBookings(res.data);
+        });
+
+        // axios.get(url, {withCredentials: true})
+        // .then(res => {
+        //     setBookings(res.data)
+        // })
 
         // fetch(url)
         // .then(res => res.json())

@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
+// import React, { useContext } from 'react';
+// import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 import img from '../../assets/images/login/login.svg';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
+import useAuth from '../../hooks/useAuth';
 
 const Signup = () => {
 
     // Importing crateUser function from AuthContext in AuthProvider jsx file
-    const {createUser} = useContext(AuthContext);
+    const {createUser} = useAuth();
+    // const {createUser} = useContext(AuthContext);
 
     // Getting data from form input value
     const handleSignup = event => {

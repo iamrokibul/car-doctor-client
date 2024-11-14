@@ -1,15 +1,16 @@
-import React, { useContext } from 'react';
+// import React, { useContext } from 'react';
+// import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 import img from '../../assets/images/login/login.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
-import { Result } from 'postcss';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import useAuth from '../../hooks/useAuth';
 
 const Login = () => {
 
     // Importing signIn function from AuthContext in AuthProvider jsx file
-    const {signIn} = useContext(AuthContext);
+    const {signIn} = useAuth();
+    // const {signIn} = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -29,8 +30,8 @@ const Login = () => {
                 console.log(loggedInUser, "Successfully Logged In");
                 //   navigate(location?.state ? location?.state : '/');
                 // Get access token
-                const user = { email };
-                axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
+                // const user = { email };
+                axios.post('http://localhost:5000/jwt')
                 .then(res => {
                     console.log(res.data);
                     if(res.data.success){
